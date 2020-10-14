@@ -41,12 +41,15 @@ public class HRMLoginSteps {
 
     @Then("^Login is unsuccessfull because of (InvalidCredentials|BlankUsername|BlankPassword)$")
     public void validateLoginForInvalidCredentials(String reason){
-        if(reason.contentEquals("InvalidCredentials")) {
-            Assert.assertTrue("Login is unsuccessful due to invalid credentials", hrmLoginPage.loginErrorInvalidCredentials().contains("Invalid credentials"));
-        }else if(reason.contentEquals("BlankUsername")){
-            Assert.assertTrue("Login is unsuccessful due to blank username", hrmLoginPage.loginErrorBlankUsername().contains("Username cannot be empty"));
-        }else {
-            Assert.assertTrue("Login is unsuccessful due to blank password", hrmLoginPage.loginErrorBlankPassword().contains("Password cannot be empty"));
+        switch(reason){
+            case "InvalidCredentials":
+                Assert.assertTrue("Login is unsuccessful due to invalid credentials", hrmLoginPage.getLoginError("Invalid credentials").contentEquals("Invalid credentials"));
+                break;
+            case "BlankUsername":
+                Assert.assertTrue("Login is unsuccessful due to blank username", hrmLoginPage.getLoginError("Username cannot be empty").contentEquals("Username cannot be empty"));
+                break;
+            default:
+                Assert.assertTrue("Login is unsuccessful due to blank password", hrmLoginPage.getLoginError("Password cannot be empty").contentEquals("Password cannot be empty"));
         }
     }
 }

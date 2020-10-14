@@ -1,10 +1,10 @@
 package pages;
 
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
+import testutility.PageTemplate;
 
-public class DashBoardPage extends PageObject {
+public class DashBoardPage extends PageTemplate {
 
     @FindBy(xpath="//a[contains(text(), 'Welcome')]")
     WebElementFacade loginConfirmation;

@@ -1,10 +1,10 @@
 package pages;
 
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
+import testutility.PageTemplate;
 
-public class HRMLoginPage extends PageObject {
+public class HRMLoginPage extends PageTemplate {
 
         @FindBy(xpath="//input[@id='txtUsername']")
         WebElementFacade userName;
@@ -24,22 +24,9 @@ public class HRMLoginPage extends PageObject {
                 loginButton.click();
         }
 
-        @FindBy(xpath="//span[contains(text(), 'Invalid credentials')]")
-        WebElementFacade spanMessage;
-        public String loginErrorInvalidCredentials(){
-            return spanMessage.getText();
-        }
-
-        @FindBy(xpath="//span[contains(text(), 'Username cannot be empty')]")
-        WebElementFacade blankUsername;
-        public String loginErrorBlankUsername(){
-                return blankUsername.getText();
-        }
-
-        @FindBy(xpath="//span[contains(text(), 'Password cannot be empty')]")
-        WebElementFacade blankPassword;
-        public String loginErrorBlankPassword(){
-                return blankPassword.getText();
+        public String getLoginError(String errorMsg){
+                String xpath = "//span[contains(text(), '"+ errorMsg +"')]";
+                return findElementByXpath(xpath).getText();
         }
 }
 
